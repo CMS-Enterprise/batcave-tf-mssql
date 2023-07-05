@@ -28,7 +28,7 @@ module "mssql-db" {
 
   maintenance_window              = var.maintenance_window
   backup_window                   = var.backup_window
-  enabled_cloudwatch_logs_exports = ["error"]
+  enabled_cloudwatch_logs_exports = ["agent","error"]
   create_cloudwatch_log_group     = true
 
   backup_retention_period = var.backup_retention_period
@@ -48,6 +48,7 @@ module "mssql-db" {
   character_set_name        = "Latin1_General_CI_AS"
 
   tags = local.tags
+  copy_tags_to_snapshot = true
 }
 
 resource "aws_db_subnet_group" "db_subnet_group" {
