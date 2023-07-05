@@ -28,7 +28,7 @@ module "mssql-db" {
 
   maintenance_window              = var.maintenance_window
   backup_window                   = var.backup_window
-  enabled_cloudwatch_logs_exports = ["alert","audit","error","general","listener","slowquery","trace"]
+  enabled_cloudwatch_logs_exports = ["agent","error"]
   create_cloudwatch_log_group     = true
 
   backup_retention_period = var.backup_retention_period
