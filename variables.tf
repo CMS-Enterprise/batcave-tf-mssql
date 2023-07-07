@@ -107,6 +107,12 @@ variable "options" {
   default     = []
 }
 
+variable "subnet_group_name_override" {
+  type        = string
+  default     = ""
+  nullable    = false
+  description = "Override the subnet group name. If not set, the name will be the same as the name of the RDS instance"
+}
 
 variable "s3_integration_role_arn" {
   type     = string

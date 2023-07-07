@@ -52,7 +52,7 @@ module "mssql-db" {
 }
 
 resource "aws_db_subnet_group" "db_subnet_group" {
-  name       = var.name
+  name       = coalesce(var.subnet_group_name_override, var.name)
   subnet_ids = var.subnet_ids
 }
 
@@ -72,7 +72,7 @@ resource "aws_route53_record" "www" {
 
 resource "aws_db_instance_role_association" "s3_integration" {
   count                  = var.s3_integration_role_arn != "" ? 1 : 0
-  db_instance_identifier = module.mssql-db.db_instance_name
+  db_instance_identifier = module.mssql-db.db_instance_id
   feature_name           = "S3_INTEGRATION"
   role_arn               = var.s3_integration_role_arn
 }
@@ -91,13 +91,13 @@ resource "aws_security_group_rule" "db_ingress_security_groups" {
 
 # egress cidr for updates
 resource "aws_security_group_rule" "db_egress" {
-  type                     = "egress"
-  description              = "all outbound traffic"
-  from_port                = 0
-  to_port                  = 0
-  protocol                 = "-1"
-  security_group_id        = aws_security_group.mssql.id
-  cidr_blocks              = ["0.0.0.0/0"]
+  type              = "egress"
+  description       = "all outbound traffic"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"
+  security_group_id = aws_security_group.mssql.id
+  cidr_blocks       = ["0.0.0.0/0"]
 }
 
 resource "aws_security_group" "mssql" {
