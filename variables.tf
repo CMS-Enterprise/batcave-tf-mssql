@@ -15,18 +15,22 @@ variable "max_allocated_storage" {
   default = 100
 }
 
-variable "vpc_security_group_ids" {
-  type = list(string)
+variable "additional_attached_security_group_ids" {
+  type    = list(string)
   default = []
 }
 
 variable "subnet_group_name" {
-  type = string
+  type    = string
   default = "db_subnet_group"
 }
 
 variable "subnet_ids" {
   type = list(string)
+}
+
+variable "vpc_id" {
+  type = string
 }
 
 variable "master_username" {
@@ -51,9 +55,10 @@ variable "route53_zone_base_domain" {
 
 variable "route53_record_name" {}
 
-variable "worker_security_group_id" {}
-variable "cluster_security_group_id" {}
-variable "cluster_primary_security_group_id" {}
+variable "allowed_security_group_ids" {
+  type    = list(string)
+  default = []
+}
 
 variable "apply_immediately" {
   default = false
@@ -70,7 +75,7 @@ variable "deletion_protection" {
 }
 
 variable "backup_window" {
-  type = string
+  type    = string
   default = "03:00-06:00"
 }
 
