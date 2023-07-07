@@ -52,7 +52,7 @@ module "mssql-db" {
 }
 
 resource "aws_db_subnet_group" "db_subnet_group" {
-  name       = var.subnet_group_name #hardcoded value caused module to fail if > 1 mssql created
+  name       = var.name
   subnet_ids = var.subnet_ids
 }
 
@@ -70,9 +70,9 @@ resource "aws_route53_record" "www" {
   records = [module.mssql-db.db_instance_endpoint]
 }
 
-resource "aws_db_instance_role_association" "S3INTEGRATION" {
-  count = var.attach_s3_integration_role ? 1 : 0
-  db_instance_identifier = module.mssql-db.db_instance_identifier
+resource "aws_db_instance_role_association" "s3_integration" {
+  count = var.s3_integration_role_arn != "" ? 1 : 0
+  db_instance_identifier = module.mssql-db.db_instance_name
   feature_name           = "S3_INTEGRATION"
   role_arn               = var.s3_integration_role_arn
 }

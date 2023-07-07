@@ -102,12 +102,9 @@ variable "options" {
   default     = []
 }
 
-variable "attach_s3_integration_role" {
-  type    = bool
-  default = false
-}
 
 variable "s3_integration_role_arn" {
-  type    = string
-  default = ""
+  type     = string
+  default  = ""
+  nullable = false
 }
