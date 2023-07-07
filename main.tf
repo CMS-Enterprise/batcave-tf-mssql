@@ -1,6 +1,6 @@
 locals {
   engine_version_short = split(".", var.engine_version)[0]
-  tags                 = var.tags
+  tags                 = var.tags  
 }
 
 module "mssql-db" {
@@ -52,7 +52,7 @@ module "mssql-db" {
 }
 
 resource "aws_db_subnet_group" "db_subnet_group" {
-  name       = var.name #hardcoded value caused module to fail if > 1 mssql created
+  name       = var.subnet_group_name #hardcoded value caused module to fail if > 1 mssql created
   subnet_ids = var.subnet_ids
 }
 

@@ -20,6 +20,11 @@ variable "vpc_security_group_ids" {
   default = []
 }
 
+variable "subnet_group_name" {
+  type = string
+  default = "db_subnet_group"
+}
+
 variable "subnet_ids" {
   type = list(string)
 }
