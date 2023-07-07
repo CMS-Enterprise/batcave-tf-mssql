@@ -101,3 +101,13 @@ variable "options" {
   type        = any
   default     = []
 }
+
+variable "attach_s3_integration_role" {
+  type    = bool
+  default = false
+}
+
+variable "s3_integration_role" {
+  type    = string
+  default = ""
+}

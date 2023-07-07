@@ -70,6 +70,13 @@ resource "aws_route53_record" "www" {
   records = [module.mssql-db.db_instance_endpoint]
 }
 
+resource "aws_db_instance_role_association" "S3INTEGRATION" {
+  count = var.attach_s3_integration_role ? 1 : 0
+  db_instance_identifier = module.mssql-db.db_instance_resource_id
+  feature_name           = "S3_INTEGRATION"
+  role_arn               = var.s3_integration_role
+}
+
 # mssql egress rule for cluster_security_group
 resource "aws_security_group_rule" "db-egress-cluster_security_group" {
   type                     = "egress"
