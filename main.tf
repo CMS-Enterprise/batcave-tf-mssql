@@ -39,7 +39,7 @@ module "mssql-db" {
   performance_insights_enabled = false
   create_monitoring_role       = false
 
-  options = []
+  options = var.options
 
   create_db_parameter_group = true
 #  parameter_group_name      = aws_db_parameter_group.db_parameter_group.name

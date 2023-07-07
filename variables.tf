@@ -90,3 +90,9 @@ variable "skip_final_snapshot" {
   type    = bool
   default = false
 }
+
+variable "options" {
+  description = "A list of Options to apply"
+  type        = any
+  default     = []
+}
