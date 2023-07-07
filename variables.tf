@@ -107,7 +107,7 @@ variable "attach_s3_integration_role" {
   default = false
 }
 
-variable "s3_integration_role" {
+variable "s3_integration_role_arn" {
   type    = string
   default = ""
 }

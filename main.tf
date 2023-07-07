@@ -74,7 +74,7 @@ resource "aws_db_instance_role_association" "S3INTEGRATION" {
   count = var.attach_s3_integration_role ? 1 : 0
   db_instance_identifier = module.mssql-db.db_instance_resource_id
   feature_name           = "S3_INTEGRATION"
-  role_arn               = var.s3_integration_role
+  role_arn               = var.s3_integration_role_arn
 }
 
 # mssql egress rule for cluster_security_group
