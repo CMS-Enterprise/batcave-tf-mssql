@@ -60,6 +60,16 @@ variable "allowed_security_group_ids" {
   default = []
 }
 
+variable "allowed_cidr_blocks" {
+  type    = list(string)
+  default = []
+}
+
+variable "allowed_prefix_lists" {
+  type    = list(string)
+  default = []
+}
+
 variable "apply_immediately" {
   default = false
 }

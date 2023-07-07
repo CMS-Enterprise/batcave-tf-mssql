@@ -89,6 +89,28 @@ resource "aws_security_group_rule" "db_ingress_security_groups" {
   security_group_id        = aws_security_group.mssql.id
 }
 
+resource "aws_security_group_rule" "db_ingress_cidr_blocks" {
+  for_each          = toset(var.allowed_cidr_blocks)
+  type              = "ingress"
+  description       = "mssql traffic"
+  from_port         = 1433
+  to_port           = 1433
+  protocol          = "6"
+  cidr_blocks       = [each.value]
+  security_group_id = aws_security_group.mssql.id
+}
+
+resource "aws_security_group_rule" "db_ingress_prefix_lists" {
+  for_each          = toset(var.allowed_prefix_lists)
+  type              = "ingress"
+  description       = "mssql traffic"
+  from_port         = 1433
+  to_port           = 1433
+  protocol          = "6"
+  prefix_list_ids   = [each.value]
+  security_group_id = aws_security_group.mssql.id
+}
+
 # egress cidr for updates
 resource "aws_security_group_rule" "db_egress" {
   type              = "egress"
