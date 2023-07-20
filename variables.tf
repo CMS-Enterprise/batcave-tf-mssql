@@ -3,6 +3,11 @@ variable "engine_version" {
   default = "15.00"
 }
 
+variable "auto_minor_version_upgrade" {
+  type    = bool
+  default = false
+}
+
 variable "port" {
   default = 1433
 }
