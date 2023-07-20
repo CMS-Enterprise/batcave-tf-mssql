@@ -15,6 +15,7 @@ module "mssql-db" {
   auto_minor_version_upgrade = var.auto_minor_version_upgrade
   instance_class             = var.instance_class
 
+
   allocated_storage     = var.allocated_storage
   max_allocated_storage = var.max_allocated_storage
   storage_encrypted     = true
