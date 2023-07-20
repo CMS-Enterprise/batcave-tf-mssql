@@ -12,6 +12,7 @@ module "mssql-db" {
   engine_version       = "15.00"
   family               = "sqlserver-se-15.0"
   major_engine_version = "15.00"
+  auto_minor_version_upgrade = var.auto_minor_version_upgrade
   instance_class       = var.instance_class
 
   allocated_storage     = var.allocated_storage
