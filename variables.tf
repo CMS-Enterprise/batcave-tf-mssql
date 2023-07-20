@@ -5,7 +5,7 @@ variable "engine_version" {
 
 variable "auto_minor_version_upgrade" {
   type    = bool
-  default = false
+  default = true
 }
 
 variable "port" {
