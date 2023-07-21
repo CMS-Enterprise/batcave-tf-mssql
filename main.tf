@@ -8,12 +8,13 @@ module "mssql-db" {
   source     = "terraform-aws-modules/rds/aws"
   version    = "5.2.3"
 
-  engine               = "sqlserver-se"
-  engine_version       = "15.00"
-  family               = "sqlserver-se-15.0"
-  major_engine_version = "15.00"
+  engine                     = "sqlserver-se"
+  engine_version             = "15.00"
+  family                     = "sqlserver-se-15.0"
+  major_engine_version       = "15.00"
   auto_minor_version_upgrade = var.auto_minor_version_upgrade
-  instance_class       = var.instance_class
+  instance_class             = var.instance_class
+
 
   allocated_storage     = var.allocated_storage
   max_allocated_storage = var.max_allocated_storage
