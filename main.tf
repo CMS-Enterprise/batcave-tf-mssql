@@ -74,7 +74,7 @@ resource "aws_route53_record" "www" {
 
 resource "aws_db_instance_role_association" "s3_integration" {
   count                  = var.s3_integration_role_arn != "" ? 1 : 0
-  db_instance_identifier = module.mssql-db.db_instance_id
+  db_instance_identifier = var.name
   feature_name           = "S3_INTEGRATION"
   role_arn               = var.s3_integration_role_arn
 }
