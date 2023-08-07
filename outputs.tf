@@ -5,7 +5,7 @@ output "db_instance_arn" {
 
 output "db_id" {
   description = "The RDS Identifier"
-  value       = module.mssql-db.db_instance_name
+  value       = module.mssql-db.db_instance_id
 }
 
 output "db_resource_id" {
