@@ -1,7 +1,4 @@
 variable "name" {}
-variable "engine_version" {
-  default = "15.00"
-}
 
 variable "auto_minor_version_upgrade" {
   type    = bool
@@ -25,11 +22,6 @@ variable "additional_attached_security_group_ids" {
   default = []
 }
 
-variable "subnet_group_name" {
-  type    = string
-  default = "db_subnet_group"
-}
-
 variable "subnet_ids" {
   type = list(string)
 }
@@ -41,7 +33,6 @@ variable "vpc_id" {
 variable "master_username" {
   default = "admin"
 }
-variable "database_name" {}
 
 variable "tags" {
   type = map(string)

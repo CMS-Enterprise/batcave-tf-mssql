@@ -1,6 +1,5 @@
 locals {
-  engine_version_short = split(".", var.engine_version)[0]
-  tags                 = var.tags
+  tags = var.tags
 }
 
 module "mssql-db" {
