@@ -23,13 +23,16 @@ You should see output showing the tables in the mssql database.
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
-No requirements.
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.2 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.61.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.61.0 |
 
 ## Modules
 
@@ -70,10 +73,10 @@ No requirements.
 | <a name="input_maintenance_window"></a> [maintenance\_window](#input\_maintenance\_window) | n/a | `string` | `"Mon:00:00-Mon:03:00"` | no |
 | <a name="input_master_username"></a> [master\_username](#input\_master\_username) | n/a | `string` | `"admin"` | no |
 | <a name="input_max_allocated_storage"></a> [max\_allocated\_storage](#input\_max\_allocated\_storage) | n/a | `number` | `100` | no |
-| <a name="input_name"></a> [name](#input\_name) | n/a | `any` | n/a | yes |
+| <a name="input_name"></a> [name](#input\_name) | n/a | `string` | n/a | yes |
 | <a name="input_options"></a> [options](#input\_options) | A list of Options to apply | `any` | `[]` | no |
 | <a name="input_port"></a> [port](#input\_port) | n/a | `number` | `1433` | no |
-| <a name="input_route53_record_name"></a> [route53\_record\_name](#input\_route53\_record\_name) | n/a | `any` | n/a | yes |
+| <a name="input_route53_record_name"></a> [route53\_record\_name](#input\_route53\_record\_name) | n/a | `string` | n/a | yes |
 | <a name="input_route53_zone_base_domain"></a> [route53\_zone\_base\_domain](#input\_route53\_zone\_base\_domain) | If route53\_zone\_id is an empty string, this variable is used to lookup the r53 zone dynamicaly | `string` | `""` | no |
 | <a name="input_route53_zone_id"></a> [route53\_zone\_id](#input\_route53\_zone\_id) | n/a | `string` | `""` | no |
 | <a name="input_s3_integration_role_arn"></a> [s3\_integration\_role\_arn](#input\_s3\_integration\_role\_arn) | n/a | `string` | `""` | no |
