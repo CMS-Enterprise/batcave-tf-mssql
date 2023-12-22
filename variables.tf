@@ -1,6 +1,5 @@
-variable "name" {}
-variable "engine_version" {
-  default = "15.00"
+variable "name" {
+  type = string
 }
 
 variable "auto_minor_version_upgrade" {
@@ -10,24 +9,22 @@ variable "auto_minor_version_upgrade" {
 
 variable "port" {
   default = 1433
+  type    = number
 }
 
 variable "allocated_storage" {
   default = 20 # minimum for RDS
+  type    = number
 }
 
 variable "max_allocated_storage" {
   default = 100
+  type    = number
 }
 
 variable "additional_attached_security_group_ids" {
   type    = list(string)
   default = []
-}
-
-variable "subnet_group_name" {
-  type    = string
-  default = "db_subnet_group"
 }
 
 variable "subnet_ids" {
@@ -40,8 +37,8 @@ variable "vpc_id" {
 
 variable "master_username" {
   default = "admin"
+  type    = string
 }
-variable "database_name" {}
 
 variable "tags" {
   type = map(string)
@@ -52,13 +49,17 @@ variable "tags" {
 
 variable "route53_zone_id" {
   default = ""
+  type    = string
 }
 variable "route53_zone_base_domain" {
   description = "If route53_zone_id is an empty string, this variable is used to lookup the r53 zone dynamicaly"
   default     = ""
+  type        = string
 }
 
-variable "route53_record_name" {}
+variable "route53_record_name" {
+  type = string
+}
 
 variable "allowed_security_group_ids" {
   type    = list(string)
@@ -77,11 +78,13 @@ variable "allowed_prefix_lists" {
 
 variable "apply_immediately" {
   default = false
+  type    = bool
 }
 
 variable "instance_class" {
   default     = "db.r5.xlarge"
   description = "Instance classes for instances created under the cluster"
+  type        = string
 }
 
 variable "deletion_protection" {

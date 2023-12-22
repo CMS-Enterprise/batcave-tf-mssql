@@ -1,6 +1,15 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = ">= 4.61.0"
+    }
+  }
+  required_version = ">= 1.2"
+}
+
 locals {
-  engine_version_short = split(".", var.engine_version)[0]
-  tags                 = var.tags
+  tags = var.tags
 }
 
 module "mssql-db" {
