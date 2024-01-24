@@ -23,6 +23,7 @@ module "mssql-db" {
   major_engine_version       = "15.00"
   auto_minor_version_upgrade = var.auto_minor_version_upgrade
   instance_class             = var.instance_class
+  ca_cert_identifier         = var.ca_cert_identifier
 
 
   allocated_storage     = var.allocated_storage
