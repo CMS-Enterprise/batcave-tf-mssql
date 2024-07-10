@@ -145,13 +145,13 @@ variable "ca_cert_identifier" {
 }
 
 variable "engine_version_number" {
-  description =
+  description = ""
   type        = string
   default     = "15.00"
 }
 
 variable "engine" {
-  description =
+  description = ""
   type        = string
   default     = "sqlserver-se"
 }
