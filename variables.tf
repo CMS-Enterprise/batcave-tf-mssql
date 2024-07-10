@@ -47,19 +47,19 @@ variable "tags" {
   }
 }
 
-variable "route53_zone_id" {
-  default = ""
-  type    = string
-}
-variable "route53_zone_base_domain" {
-  description = "If route53_zone_id is an empty string, this variable is used to lookup the r53 zone dynamicaly"
-  default     = ""
-  type        = string
-}
+#variable "route53_zone_id" {
+#  default = ""
+#  type    = string
+#}
+#variable "route53_zone_base_domain" {
+#  description = "If route53_zone_id is an empty string, this variable is used to lookup the r53 zone dynamicaly"
+#  default     = ""
+#  type        = string
+#}
 
-variable "route53_record_name" {
-  type = string
-}
+#variable "route53_record_name" {
+#  type = string
+#}
 
 variable "allowed_security_group_ids" {
   type    = list(string)
