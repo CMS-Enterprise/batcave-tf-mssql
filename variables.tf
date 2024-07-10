@@ -175,3 +175,13 @@ variable "license_model" {
   type    = string
   default = "license-included"
 }
+
+variable "family" {
+  type    = string
+  default = "sqlserver-se-15.0"
+}
+
+variable "s3_integration_feature_name" {
+  type    = string
+  default = "S3_INTEGRATION"
+}

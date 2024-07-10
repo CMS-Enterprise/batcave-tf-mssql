@@ -17,10 +17,10 @@ module "mssql-db" {
   source     = "terraform-aws-modules/rds/aws"
   version    = "5.2.3"
 
-  engine                     = var.engine                                     # "sqlserver-se"
-  engine_version             = var.engine_version_number                      # "15.00"
-  family                     = "sqlserver-se-15.0"   # "sqlserver-se-15.0"
-  major_engine_version       = var.engine_version_number                      # "15.00"
+  engine                     = var.engine                                   
+  engine_version             = var.engine_version_number 
+  family                     = var.family
+  major_engine_version       = var.engine_version_number
   auto_minor_version_upgrade = var.auto_minor_version_upgrade
   instance_class             = var.instance_class
   ca_cert_identifier         = var.ca_cert_identifier
@@ -85,7 +85,7 @@ resource "aws_db_subnet_group" "db_subnet_group" {
 resource "aws_db_instance_role_association" "s3_integration" {
   count                  = var.s3_integration_role_arn != "" ? 1 : 0
   db_instance_identifier = var.name
-  feature_name           = "S3_INTEGRATION"
+  feature_name           = var.s3_integration_feature_name
   role_arn               = var.s3_integration_role_arn
 }
 
