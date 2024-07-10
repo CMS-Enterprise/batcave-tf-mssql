@@ -19,7 +19,7 @@ module "mssql-db" {
 
   engine                     = var.engine                                     # "sqlserver-se"
   engine_version             = var.engine_version_number                      # "15.00"
-  family                     = "${var.engine}-${var.engine_version_number}"   # "sqlserver-se-15.0"
+  family                     = "sqlserver-se-15.0"   # "sqlserver-se-15.0"
   major_engine_version       = var.engine_version_number                      # "15.00"
   auto_minor_version_upgrade = var.auto_minor_version_upgrade
   instance_class             = var.instance_class
