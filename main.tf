@@ -17,10 +17,10 @@ module "mssql-db" {
   source     = "terraform-aws-modules/rds/aws"
   version    = "5.2.3"
 
-  engine                     = "sqlserver-se"
-  engine_version             = "15.00"
-  family                     = "sqlserver-se-15.0"
-  major_engine_version       = "15.00"
+  engine                     = var.engine                                     # "sqlserver-se"
+  engine_version             = var.engine_version_number                      # "15.00"
+  family                     = "${var.engine}-${var.engine_version_number}"   # "sqlserver-se-15.0"
+  major_engine_version       = var.engine_version_number                      # "15.00"
   auto_minor_version_upgrade = var.auto_minor_version_upgrade
   instance_class             = var.instance_class
   ca_cert_identifier         = var.ca_cert_identifier
@@ -40,7 +40,7 @@ module "mssql-db" {
 
   maintenance_window              = var.maintenance_window
   backup_window                   = var.backup_window
-  enabled_cloudwatch_logs_exports = ["agent", "error"]
+  enabled_cloudwatch_logs_exports = var.enabled_cloudwatch_logs_exports
   create_cloudwatch_log_group     = true
 
   backup_retention_period = var.backup_retention_period
@@ -55,9 +55,9 @@ module "mssql-db" {
 
   create_db_parameter_group = true
   #  parameter_group_name      = aws_db_parameter_group.db_parameter_group.name
-  license_model      = "license-included"
-  timezone           = "GMT Standard Time"
-  character_set_name = "Latin1_General_CI_AS"
+  license_model      = var.license_model
+  timezone           = var.timezone
+  character_set_name = var.character_set_name
 
   tags                  = local.tags
   copy_tags_to_snapshot = true
@@ -68,19 +68,19 @@ resource "aws_db_subnet_group" "db_subnet_group" {
   subnet_ids = var.subnet_ids
 }
 
-data "aws_route53_zone" "cms_zone" {
-  count        = var.route53_zone_base_domain != "" ? 1 : 0
-  name         = var.route53_zone_base_domain
-  private_zone = true
-}
+#data "aws_route53_zone" "cms_zone" {
+#  count        = var.route53_zone_base_domain != "" ? 1 : 0
+#  name         = var.route53_zone_base_domain
+#  private_zone = true
+#}
 
-resource "aws_route53_record" "www" {
-  zone_id = coalesce(var.route53_zone_id, try(data.aws_route53_zone.cms_zone[0].zone_id, ""))
-  name    = var.route53_record_name
-  type    = "CNAME"
-  ttl     = "60"
-  records = [module.mssql-db.db_instance_endpoint]
-}
+#resource "aws_route53_record" "www" {
+#  zone_id = coalesce(var.route53_zone_id, try(data.aws_route53_zone.cms_zone[0].zone_id, ""))
+#  name    = var.route53_record_name
+#  type    = "CNAME"
+#  ttl     = "60"
+#  records = [module.mssql-db.db_instance_endpoint]
+#}
 
 resource "aws_db_instance_role_association" "s3_integration" {
   count                  = var.s3_integration_role_arn != "" ? 1 : 0
@@ -94,8 +94,8 @@ resource "aws_security_group_rule" "db_ingress_security_groups" {
   for_each                 = toset(var.allowed_security_group_ids)
   type                     = "ingress"
   description              = "mssql traffic"
-  from_port                = 1433
-  to_port                  = 1433
+  from_port                = var.port
+  to_port                  = var.port
   protocol                 = "6"
   source_security_group_id = each.value
   security_group_id        = aws_security_group.mssql.id
@@ -105,8 +105,8 @@ resource "aws_security_group_rule" "db_ingress_cidr_blocks" {
   for_each          = toset(var.allowed_cidr_blocks)
   type              = "ingress"
   description       = "mssql traffic"
-  from_port         = 1433
-  to_port           = 1433
+  from_port         = var.port
+  to_port           = var.port
   protocol          = "6"
   cidr_blocks       = [each.value]
   security_group_id = aws_security_group.mssql.id
@@ -116,8 +116,8 @@ resource "aws_security_group_rule" "db_ingress_prefix_lists" {
   for_each          = toset(var.allowed_prefix_lists)
   type              = "ingress"
   description       = "mssql traffic"
-  from_port         = 1433
-  to_port           = 1433
+  from_port         = var.port
+  to_port           = var.port
   protocol          = "6"
   prefix_list_ids   = [each.value]
   security_group_id = aws_security_group.mssql.id

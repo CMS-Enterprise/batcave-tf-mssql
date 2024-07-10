@@ -143,3 +143,35 @@ variable "ca_cert_identifier" {
   type        = string
   default     = "rds-ca-rsa2048-g1"
 }
+
+variable "engine_version_number" {
+  description =
+  type        = string
+  default     = "15.00"
+}
+
+variable "engine" {
+  description =
+  type        = string
+  default     = "sqlserver-se"
+}
+
+variable "enabled_cloudwatch_logs_exports" {
+  type    = list(any)
+  default = ["agent", "error"]
+}
+
+variable "timezone" {
+  type    = string
+  default = "GMT Standard Time"
+}
+
+variable "character_set_name" {
+  type    = string
+  default = "Latin1_General_CI_AS"
+}
+
+variable "license_model" {
+  type    = string
+  default = "license-included"
+}
