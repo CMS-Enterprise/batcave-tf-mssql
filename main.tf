@@ -17,8 +17,8 @@ module "mssql-db" {
   source     = "terraform-aws-modules/rds/aws"
   version    = "5.2.3"
 
-  engine                     = var.engine                                   
-  engine_version             = var.engine_version_number 
+  engine                     = var.engine
+  engine_version             = var.engine_version_number
   family                     = var.family
   major_engine_version       = var.engine_version_number
   auto_minor_version_upgrade = var.auto_minor_version_upgrade
