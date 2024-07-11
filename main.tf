@@ -82,13 +82,6 @@ resource "aws_db_subnet_group" "db_subnet_group" {
 #  records = [module.mssql-db.db_instance_endpoint]
 #}
 
-resource "aws_db_instance_role_association" "s3_integration" {
-  count                  = var.s3_integration_role_arn != "" ? 1 : 0
-  db_instance_identifier = var.name
-  feature_name           = var.s3_integration_feature_name
-  role_arn               = var.s3_integration_role_arn
-}
-
 # mssql ingress rules
 resource "aws_security_group_rule" "db_ingress_security_groups" {
   for_each                 = toset(var.allowed_security_group_ids)
