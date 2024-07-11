@@ -185,3 +185,51 @@ variable "s3_integration_feature_name" {
   type    = string
   default = "S3_INTEGRATION"
 }
+
+variable "force_detach_policies" {
+  description = "Whether policies should be detached from this role when destroying"
+  type        = bool
+  default     = true
+}
+
+variable "max_session_duration" {
+  description = "Maximum CLI/API session duration in seconds between 3600 and 43200"
+  type        = number
+  default     = null
+}
+
+variable "role_name" {
+  description = "Name of IAM role"
+  type        = string
+  default     = "vpc-cni"
+}
+
+variable "role_path" {
+  description = "Path of IAM role"
+  type        = string
+  default     = "/delegatedadmin/developer/"
+}
+
+variable "role_permissions_boundary_arn" {
+  description = "Permissions boundary ARN to use for IAM role"
+  type        = string
+  default     = "arn:aws:iam::373346310182:policy/cms-cloud-admin/developer-boundary-policy"
+}
+
+variable "role_description" {
+  description = "IAM Role description"
+  type        = string
+  default     = null
+}
+
+variable "assume_role_condition_test" {
+  description = "Name of the [IAM condition operator](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html) to evaluate when assuming the role"
+  type        = string
+  default     = "StringEquals"
+}
+
+variable "aws_id" {
+  description = "AWS Account Ids"
+  type        = string
+  default     = "111122223333"
+}

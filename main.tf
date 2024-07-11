@@ -132,3 +132,44 @@ resource "aws_security_group" "mssql" {
   description = "mssql security group"
   vpc_id      = var.vpc_id
 }
+
+# IAM Role/Policy Creation for MSSQL Backup
+data "aws_iam_policy_document" "this" {
+
+  dynamic "statement" {
+
+    content {
+      effect  = "Allow"
+      actions = ["sts:AssumeRole"]
+
+      principals {
+        type        = "Service"
+        identifiers = ["rds.amazonaws.com"]
+      }
+
+      condition {
+        test     = var.assume_role_condition_test
+        variable = "aws:SourceAccount"
+        values   = [var.aws_id]
+      }
+    }
+  }
+}
+
+resource "aws_iam_role" "this" {
+
+  name        = var.role_name
+  path        = var.role_path
+  description = var.role_description
+
+  assume_role_policy    = data.aws_iam_policy_document.this[0].json
+  max_session_duration  = var.max_session_duration
+  permissions_boundary  = var.role_permissions_boundary_arn
+  force_detach_policies = var.force_detach_policies
+}
+
+resource "aws_iam_role_policy_attachment" "this" {
+
+  role       = aws_iam_role.this[0].name
+  policy_arn = var.role_policy_arns
+}
