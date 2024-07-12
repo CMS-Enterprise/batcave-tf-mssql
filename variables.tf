@@ -245,3 +245,9 @@ variable "s3_bucket_arns" {
   type        = list(string)
   default     = [""]
 }
+
+variable "attach_s3_policy" {
+  description = "Determines whether to attach the S3 to the role"
+  type        = bool
+  default     = false
+}
