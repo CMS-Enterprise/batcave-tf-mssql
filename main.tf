@@ -158,7 +158,7 @@ resource "aws_iam_role" "this" {
   path        = var.role_path
   description = var.role_description
 
-  assume_role_policy    = data.aws_iam_policy_document.this[0].json
+  assume_role_policy    = data.aws_iam_policy_document.this.json
   max_session_duration  = var.max_session_duration
   permissions_boundary  = var.role_permissions_boundary_arn
   force_detach_policies = var.force_detach_policies
@@ -166,6 +166,6 @@ resource "aws_iam_role" "this" {
 
 resource "aws_iam_role_policy_attachment" "this" {
 
-  role       = aws_iam_role.this[0].name
+  role       = aws_iam_role.this.name
   policy_arn = var.role_policy_arns
 }
