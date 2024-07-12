@@ -132,6 +132,12 @@ variable "subnet_group_name_override" {
   description = "Override the subnet group name. If not set, the name will be the same as the name of the RDS instance"
 }
 
+variable "s3_integration_role_arn" {
+  type     = string
+  default  = ""
+  nullable = false
+}
+
 variable "ca_cert_identifier" {
   description = "Specifies the identifier of the CA certificate for the DB instance"
   type        = string
@@ -205,6 +211,12 @@ variable "role_description" {
   default     = null
 }
 
+variable "policy_name_prefix" {
+  description = "IAM policy name prefix"
+  type        = string
+  default     = "AmazonEKS_"
+}
+
 variable "role_policy_arns" {
   description = "ARNs of any policies to attach to the IAM role"
   type        = map(string)
@@ -249,4 +261,24 @@ variable "aws_id" {
 
 
 
+################################################################################
+# Policies
+################################################################################
+variable "app_name" {
+  description = "App name (ie. Flux, Velero, etc.)"
+  type        = string
+  default     = ""
+}
 
+# S3
+variable "attach_s3_policy" {
+  description = "Determines whether to attach the S3 to the role"
+  type        = bool
+  default     = false
+}
+
+variable "s3_bucket_arns" {
+  description = "List of S3 Bucket ARNs to allow access to"
+  type        = list(string)
+  default     = [""]
+}
