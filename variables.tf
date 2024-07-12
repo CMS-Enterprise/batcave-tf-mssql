@@ -269,7 +269,7 @@ variable "s3_bucket_arns" {
 
 locals {
   options-value = "arn:aws:iam::${var.aws_id}:role/delegatedadmin/developer/${var.role_name}"
-  arn = "arn:aws:iam::${var.aws_id}:policy/cms-cloud-admin/developer-boundary-policy"
+  arn           = "arn:aws:iam::${var.aws_id}:policy/cms-cloud-admin/developer-boundary-policy"
 }
 variable "options" {
   description = "A list of Options to apply"
