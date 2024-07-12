@@ -135,21 +135,20 @@ resource "aws_security_group" "mssql" {
 
 # IAM Role/Policy Creation for MSSQL Backup
 data "aws_iam_policy_document" "this" {
+  statement{
+      effect  = "Allow"
+      actions = ["sts:AssumeRole"]
 
-  content {
-    effect  = "Allow"
-    actions = ["sts:AssumeRole"]
+      principals {
+        type        = "Service"
+        identifiers = ["rds.amazonaws.com"]
+      }
 
-    principals {
-      type        = "Service"
-      identifiers = ["rds.amazonaws.com"]
-    }
-
-    condition {
-      test     = var.assume_role_condition_test
-      variable = "aws:SourceAccount"
-      values   = [var.aws_id]
-    }
+      condition {
+        test     = var.assume_role_condition_test
+        variable = "aws:SourceAccount"
+        values   = [var.aws_id]
+      }
   }
 }
 
