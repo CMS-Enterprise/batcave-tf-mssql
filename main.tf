@@ -136,8 +136,6 @@ resource "aws_security_group" "mssql" {
 # IAM Role/Policy Creation for MSSQL Backup
 data "aws_iam_policy_document" "this" {
 
-  dynamic "statement" {
-
     content {
       effect  = "Allow"
       actions = ["sts:AssumeRole"]
@@ -153,7 +151,6 @@ data "aws_iam_policy_document" "this" {
         values   = [var.aws_id]
       }
     }
-  }
 }
 
 resource "aws_iam_role" "this" {
