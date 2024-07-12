@@ -233,3 +233,9 @@ variable "aws_id" {
   type        = string
   default     = "111122223333"
 }
+
+variable "role_policy_arns" {
+  description = "ARNs of any policies to attach to the IAM role"
+  type        = map(string)
+  default     = {}
+}
