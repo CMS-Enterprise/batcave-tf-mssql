@@ -234,12 +234,6 @@ variable "oidc_providers" {
   }
 }
 
-variable "tags" {
-  description = "A map of tags to add the the IAM role"
-  type        = map(any)
-  default     = {}
-}
-
 variable "force_detach_policies" {
   description = "Whether policies should be detached from this role when destroying"
   type        = bool
