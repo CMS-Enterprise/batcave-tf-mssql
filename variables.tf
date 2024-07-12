@@ -181,21 +181,10 @@ variable "family" {
   default = "sqlserver-se-15.0"
 }
 
-variable "s3_integration_feature_name" {
-  type    = string
-  default = "S3_INTEGRATION"
-}
-
-variable "force_detach_policies" {
-  description = "Whether policies should be detached from this role when destroying"
+variable "create_role" {
+  description = "Whether to create a role"
   type        = bool
   default     = true
-}
-
-variable "max_session_duration" {
-  description = "Maximum CLI/API session duration in seconds between 3600 and 43200"
-  type        = number
-  default     = null
 }
 
 variable "role_name" {
@@ -222,6 +211,48 @@ variable "role_description" {
   default     = null
 }
 
+variable "policy_name_prefix" {
+  description = "IAM policy name prefix"
+  type        = string
+  default     = "AmazonEKS_"
+}
+
+variable "role_policy_arns" {
+  description = "ARNs of any policies to attach to the IAM role"
+  type        = map(string)
+  default     = {}
+}
+
+variable "oidc_providers" {
+  description = "Map of OIDC providers where each provider map should contain the `provider`, `provider_arn`, and `namespace_service_accounts`"
+  type        = any
+  default = {
+    one = {
+      provider_arn               = ""
+      namespace_service_accounts = ["default:default"]
+    }
+  }
+}
+
+variable "tags" {
+  description = "A map of tags to add the the IAM role"
+  type        = map(any)
+  default     = {}
+}
+
+variable "force_detach_policies" {
+  description = "Whether policies should be detached from this role when destroying"
+  type        = bool
+  default     = true
+}
+
+variable "max_session_duration" {
+  description = "Maximum CLI/API session duration in seconds between 3600 and 43200"
+  type        = number
+  default     = null
+}
+
+
 variable "assume_role_condition_test" {
   description = "Name of the [IAM condition operator](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html) to evaluate when assuming the role"
   type        = string
@@ -234,20 +265,26 @@ variable "aws_id" {
   default     = "111122223333"
 }
 
-variable "role_policy_arns" {
-  description = "ARNs of any policies to attach to the IAM role"
-  type        = map(string)
-  default     = {}
+
+
+################################################################################
+# Policies
+################################################################################
+variable "app_name" {
+  description = "App name (ie. Flux, Velero, etc.)"
+  type        = string
+  default     = ""
+}
+
+# S3
+variable "attach_s3_policy" {
+  description = "Determines whether to attach the S3 to the role"
+  type        = bool
+  default     = false
 }
 
 variable "s3_bucket_arns" {
   description = "List of S3 Bucket ARNs to allow access to"
   type        = list(string)
   default     = [""]
-}
-
-variable "attach_s3_policy" {
-  description = "Determines whether to attach the S3 to the role"
-  type        = bool
-  default     = false
 }
