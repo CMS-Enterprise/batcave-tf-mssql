@@ -122,7 +122,13 @@ variable "skip_final_snapshot" {
 variable "options" {
   description = "A list of Options to apply"
   type        = any
-  default     = []
+  default     = [{
+      option_name = "SQLSERVER_BACKUP_RESTORE"
+      option_settings = [{
+        name  = "IAM_ROLE_ARN"
+        value = "arn:aws:iam::654654444899:role/delegatedadmin/developer/qmms2-np-s3-integration-np"                                               # db-s3-role dependency
+      }]
+    }]
 }
 
 variable "subnet_group_name_override" {
@@ -132,11 +138,11 @@ variable "subnet_group_name_override" {
   description = "Override the subnet group name. If not set, the name will be the same as the name of the RDS instance"
 }
 
-variable "s3_integration_role_arn" {
-  type     = string
-  default  = ""
-  nullable = false
-}
+#variable "s3_integration_role_arn" {
+#  type     = string
+#  default  = ""
+#  nullable = false
+#}
 
 variable "ca_cert_identifier" {
   description = "Specifies the identifier of the CA certificate for the DB instance"
