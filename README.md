@@ -91,6 +91,8 @@ You should see output showing the tables in the mssql database.
 | <a name="input_role_name"></a> [role\_name](#input\_role\_name) | Name of IAM role | `string` | `"vpc-cni"` | no |
 | <a name="input_role_path"></a> [role\_path](#input\_role\_path) | Path of IAM role | `string` | `"/delegatedadmin/developer/"` | no |
 | <a name="input_role_permissions_boundary_arn"></a> [role\_permissions\_boundary\_arn](#input\_role\_permissions\_boundary\_arn) | Permissions boundary ARN to use for IAM role | `string` | `"arn:aws:iam::373346310182:policy/cms-cloud-admin/developer-boundary-policy"` | no |
+| <a name="input_role_policy_arns"></a> [role\_policy\_arns](#input\_role\_policy\_arns) | ARNs of any policies to attach to the IAM role | `map(string)` | `{}` | no |
+| <a name="input_s3_bucket_arns"></a> [s3\_bucket\_arns](#input\_s3\_bucket\_arns) | List of S3 Bucket ARNs to allow access to | `list(string)` | <pre>[<br>  ""<br>]</pre> | no |
 | <a name="input_s3_integration_feature_name"></a> [s3\_integration\_feature\_name](#input\_s3\_integration\_feature\_name) | n/a | `string` | `"S3_INTEGRATION"` | no |
 | <a name="input_s3_integration_role_arn"></a> [s3\_integration\_role\_arn](#input\_s3\_integration\_role\_arn) | n/a | `string` | `""` | no |
 | <a name="input_skip_final_snapshot"></a> [skip\_final\_snapshot](#input\_skip\_final\_snapshot) | n/a | `bool` | `false` | no |
