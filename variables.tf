@@ -119,18 +119,6 @@ variable "skip_final_snapshot" {
   default = false
 }
 
-variable "options" {
-  description = "A list of Options to apply"
-  type        = any
-  default = [{
-    option_name = "SQLSERVER_BACKUP_RESTORE"
-    option_settings = [{
-      name  = "IAM_ROLE_ARN"
-      value = "arn:aws:iam::654654444899:role/delegatedadmin/developer/qmms2-np-s3-integration-np" # db-s3-role dependency
-    }]
-  }]
-}
-
 variable "subnet_group_name_override" {
   type        = string
   default     = ""
@@ -205,16 +193,16 @@ variable "role_path" {
   default     = "/delegatedadmin/developer/"
 }
 
-variable "role_permissions_boundary_arn" {
-  description = "Permissions boundary ARN to use for IAM role"
-  type        = string
-  default     = "arn:aws:iam::373346310182:policy/cms-cloud-admin/developer-boundary-policy"
-}
-
 variable "role_description" {
   description = "IAM Role description"
   type        = string
   default     = null
+}
+
+variable "policy_name_prefix" {
+  description = "IAM policy name prefix"
+  type        = string
+  default     = "AmazonEKS_"
 }
 
 variable "role_policy_arns" {
@@ -259,6 +247,39 @@ variable "aws_id" {
   default     = "111122223333"
 }
 
+variable "app_name" {
+  description = "App name (ie. Flux, Velero, etc.)"
+  type        = string
+  default     = ""
+}
 
+# S3
+variable "attach_s3_policy" {
+  description = "Determines whether to attach the S3 to the role"
+  type        = bool
+  default     = false
+}
 
+variable "s3_bucket_arns" {
+  description = "List of S3 Bucket ARNs to allow access to"
+  type        = list(string)
+  default     = [""]
+}
 
+variable "options" {
+  description = "A list of Options to apply"
+  type        = any
+  default = [{
+    option_name = "SQLSERVER_BACKUP_RESTORE"
+    option_settings = [{
+      name  = "IAM_ROLE_ARN"
+      value = "arn:aws:iam::${var.aws_id}:role/delegatedadmin/developer/${var.role_name}" # db-s3-role dependency
+    }]
+  }]
+}
+
+variable "role_permissions_boundary_arn" {
+  description = "Permissions boundary ARN to use for IAM role"
+  type        = string
+  default     = "arn:aws:iam::${var.aws_id}:policy/cms-cloud-admin/developer-boundary-policy"
+}
