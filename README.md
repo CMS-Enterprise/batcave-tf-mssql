@@ -87,7 +87,7 @@ You should see output showing the tables in the mssql database.
 | <a name="input_max_session_duration"></a> [max\_session\_duration](#input\_max\_session\_duration) | Maximum CLI/API session duration in seconds between 3600 and 43200 | `number` | `null` | no |
 | <a name="input_name"></a> [name](#input\_name) | n/a | `string` | n/a | yes |
 | <a name="input_oidc_providers"></a> [oidc\_providers](#input\_oidc\_providers) | Map of OIDC providers where each provider map should contain the `provider`, `provider_arn`, and `namespace_service_accounts` | `any` | <pre>{<br>  "one": {<br>    "namespace_service_accounts": [<br>      "default:default"<br>    ],<br>    "provider_arn": ""<br>  }<br>}</pre> | no |
-| <a name="input_options"></a> [options](#input\_options) | A list of Options to apply | `any` | `[]` | no |
+| <a name="input_options"></a> [options](#input\_options) | A list of Options to apply | `any` | <pre>[<br>  {<br>    "option_name": "SQLSERVER_BACKUP_RESTORE",<br>    "option_settings": [<br>      {<br>        "name": "IAM_ROLE_ARN",<br>        "value": "arn:aws:iam::654654444899:role/delegatedadmin/developer/qmms2-np-s3-integration-np"<br>      }<br>    ]<br>  }<br>]</pre> | no |
 | <a name="input_port"></a> [port](#input\_port) | n/a | `number` | `1433` | no |
 | <a name="input_role_description"></a> [role\_description](#input\_role\_description) | IAM Role description | `string` | `null` | no |
 | <a name="input_role_name"></a> [role\_name](#input\_role\_name) | Name of IAM role | `string` | `"vpc-cni"` | no |
