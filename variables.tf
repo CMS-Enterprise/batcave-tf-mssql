@@ -122,13 +122,13 @@ variable "skip_final_snapshot" {
 variable "options" {
   description = "A list of Options to apply"
   type        = any
-  default = [{
-    option_name = "SQLSERVER_BACKUP_RESTORE"
-    option_settings = [{
-      name  = "IAM_ROLE_ARN"
-      value = "arn:aws:iam::654654444899:role/delegatedadmin/developer/qmms2-np-s3-integration-np" # db-s3-role dependency
+  default     = [{
+      option_name = "SQLSERVER_BACKUP_RESTORE"
+      option_settings = [{
+        name  = "IAM_ROLE_ARN"
+        value = "arn:aws:iam::654654444899:role/delegatedadmin/developer/qmms2-np-s3-integration-np"                                               # db-s3-role dependency
+      }]
     }]
-  }]
 }
 
 variable "subnet_group_name_override" {
@@ -217,6 +217,12 @@ variable "role_description" {
   default     = null
 }
 
+variable "policy_name_prefix" {
+  description = "IAM policy name prefix"
+  type        = string
+  default     = "AmazonEKS_"
+}
+
 variable "role_policy_arns" {
   description = "ARNs of any policies to attach to the IAM role"
   type        = map(string)
@@ -261,4 +267,24 @@ variable "aws_id" {
 
 
 
+################################################################################
+# Policies
+################################################################################
+variable "app_name" {
+  description = "App name (ie. Flux, Velero, etc.)"
+  type        = string
+  default     = ""
+}
 
+# S3
+variable "attach_s3_policy" {
+  description = "Determines whether to attach the S3 to the role"
+  type        = bool
+  default     = false
+}
+
+variable "s3_bucket_arns" {
+  description = "List of S3 Bucket ARNs to allow access to"
+  type        = list(string)
+  default     = [""]
+}
