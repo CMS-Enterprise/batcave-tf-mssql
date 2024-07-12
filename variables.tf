@@ -239,3 +239,9 @@ variable "role_policy_arns" {
   type        = map(string)
   default     = {}
 }
+
+variable "s3_bucket_arns" {
+  description = "List of S3 Bucket ARNs to allow access to"
+  type        = list(string)
+  default     = [""]
+}
