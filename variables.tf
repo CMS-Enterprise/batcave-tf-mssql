@@ -281,5 +281,5 @@ variable "options" {
 variable "role_permissions_boundary_arn" {
   description = "Permissions boundary ARN to use for IAM role"
   type        = string
-  default     = "arn:aws:iam::654654444899:role/delegatedadmin/developer/qmms2-np-s3-integration-np"  
+  default     = "arn:aws:iam::654654444899:role/delegatedadmin/developer/qmms2-np-s3-integration-np"
 }
