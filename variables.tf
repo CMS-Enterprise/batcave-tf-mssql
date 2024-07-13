@@ -126,11 +126,11 @@ variable "subnet_group_name_override" {
   description = "Override the subnet group name. If not set, the name will be the same as the name of the RDS instance"
 }
 
-#variable "s3_integration_role_arn" {
-#  type     = string
-#  default  = ""
-#  nullable = false
-#}
+variable "s3_integration_role_arn" {
+  type     = string
+  default  = ""
+  nullable = false
+}
 
 variable "ca_cert_identifier" {
   description = "Specifies the identifier of the CA certificate for the DB instance"
