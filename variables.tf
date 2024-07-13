@@ -266,11 +266,6 @@ variable "s3_bucket_arns" {
   default     = [""]
 }
 
-
-locals {
-  options-value = "arn:aws:iam::${var.aws_id}:role/delegatedadmin/developer/${var.role_name}"
-  arn           = "arn:aws:iam::${var.aws_id}:policy/cms-cloud-admin/developer-boundary-policy"
-}
 variable "options" {
   description = "A list of Options to apply"
   type        = any
@@ -278,7 +273,7 @@ variable "options" {
     option_name = "SQLSERVER_BACKUP_RESTORE"
     option_settings = [{
       name  = "IAM_ROLE_ARN"
-      value = locals.option_name # db-s3-role dependency
+      value = outputs.option_name # db-s3-role dependency
     }]
   }]
 }
@@ -286,5 +281,5 @@ variable "options" {
 variable "role_permissions_boundary_arn" {
   description = "Permissions boundary ARN to use for IAM role"
   type        = string
-  default     = locals.arn
+  default     = output.arn
 }
