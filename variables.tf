@@ -273,7 +273,7 @@ variable "options" {
     option_name = "SQLSERVER_BACKUP_RESTORE"
     option_settings = [{
       name  = "IAM_ROLE_ARN"
-      value = outputs.option_name # db-s3-role dependency
+      value = "arn:aws:iam::654654444899:role/delegatedadmin/developer/qmms2-np-s3-integration-np" # db-s3-role dependency
     }]
   }]
 }
@@ -281,5 +281,5 @@ variable "options" {
 variable "role_permissions_boundary_arn" {
   description = "Permissions boundary ARN to use for IAM role"
   type        = string
-  default     = output.arn
+  default     = "arn:aws:iam::654654444899:role/delegatedadmin/developer/qmms2-np-s3-integration-np"  
 }
