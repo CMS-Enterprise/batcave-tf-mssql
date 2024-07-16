@@ -51,9 +51,9 @@ output "db_hosted_zone_id" {
 }
 
 output "options-value" {
-  value       = "arn:aws:iam::${var.aws_id}:role/delegatedadmin/developer/${var.role_name}"
+  value = "arn:aws:iam::${var.aws_id}:role/delegatedadmin/developer/${var.role_name}"
 }
 
 output "arn" {
-  value       = "arn:aws:iam::${var.aws_id}:policy/cms-cloud-admin/developer-boundary-policy"
+  value = "arn:aws:iam::${var.aws_id}:policy/cms-cloud-admin/developer-boundary-policy"
 }

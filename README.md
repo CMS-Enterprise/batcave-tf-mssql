@@ -44,14 +44,18 @@ You should see output showing the tables in the mssql database.
 
 | Name | Type |
 |------|------|
+| [aws_db_instance_role_association.s3_integration](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_instance_role_association) | resource |
 | [aws_db_subnet_group.db_subnet_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_subnet_group) | resource |
+| [aws_iam_policy.s3](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_role.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_iam_role_policy_attachment.s3_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_security_group.mssql](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
 | [aws_security_group_rule.db_egress](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
 | [aws_security_group_rule.db_ingress_cidr_blocks](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
 | [aws_security_group_rule.db_ingress_prefix_lists](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
 | [aws_security_group_rule.db_ingress_security_groups](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
+| [aws_iam_policy_document.s3](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 
 ## Inputs
@@ -63,8 +67,10 @@ You should see output showing the tables in the mssql database.
 | <a name="input_allowed_cidr_blocks"></a> [allowed\_cidr\_blocks](#input\_allowed\_cidr\_blocks) | n/a | `list(string)` | `[]` | no |
 | <a name="input_allowed_prefix_lists"></a> [allowed\_prefix\_lists](#input\_allowed\_prefix\_lists) | n/a | `list(string)` | `[]` | no |
 | <a name="input_allowed_security_group_ids"></a> [allowed\_security\_group\_ids](#input\_allowed\_security\_group\_ids) | n/a | `list(string)` | `[]` | no |
+| <a name="input_app_name"></a> [app\_name](#input\_app\_name) | App name (ie. Flux, Velero, etc.) | `string` | `""` | no |
 | <a name="input_apply_immediately"></a> [apply\_immediately](#input\_apply\_immediately) | n/a | `bool` | `false` | no |
 | <a name="input_assume_role_condition_test"></a> [assume\_role\_condition\_test](#input\_assume\_role\_condition\_test) | Name of the [IAM condition operator](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html) to evaluate when assuming the role | `string` | `"StringEquals"` | no |
+| <a name="input_attach_s3_policy"></a> [attach\_s3\_policy](#input\_attach\_s3\_policy) | Determines whether to attach the S3 to the role | `bool` | `false` | no |
 | <a name="input_auto_minor_version_upgrade"></a> [auto\_minor\_version\_upgrade](#input\_auto\_minor\_version\_upgrade) | n/a | `bool` | `true` | no |
 | <a name="input_aws_id"></a> [aws\_id](#input\_aws\_id) | AWS Account Ids | `string` | `"111122223333"` | no |
 | <a name="input_backup_retention_period"></a> [backup\_retention\_period](#input\_backup\_retention\_period) | The days to retain backups for. Default 7 | `number` | `7` | no |
@@ -87,13 +93,16 @@ You should see output showing the tables in the mssql database.
 | <a name="input_max_session_duration"></a> [max\_session\_duration](#input\_max\_session\_duration) | Maximum CLI/API session duration in seconds between 3600 and 43200 | `number` | `null` | no |
 | <a name="input_name"></a> [name](#input\_name) | n/a | `string` | n/a | yes |
 | <a name="input_oidc_providers"></a> [oidc\_providers](#input\_oidc\_providers) | Map of OIDC providers where each provider map should contain the `provider`, `provider_arn`, and `namespace_service_accounts` | `any` | <pre>{<br>  "one": {<br>    "namespace_service_accounts": [<br>      "default:default"<br>    ],<br>    "provider_arn": ""<br>  }<br>}</pre> | no |
-| <a name="input_options"></a> [options](#input\_options) | A list of Options to apply | `any` | <pre>[<br>  {<br>    "option_name": "SQLSERVER_BACKUP_RESTORE",<br>    "option_settings": [<br>      {<br>        "name": "IAM_ROLE_ARN",<br>        "value": "arn:aws:iam::654654444899:role/delegatedadmin/developer/qmms2-np-s3-integration-np"<br>      }<br>    ]<br>  }<br>]</pre> | no |
+| <a name="input_options"></a> [options](#input\_options) | A list of Options to apply | `any` | <pre>[<br>  {<br>    "option_name": "SQLSERVER_BACKUP_RESTORE",<br>    "option_settings": [<br>      {<br>        "name": "IAM_ROLE_ARN",<br>        "value": "arn:aws:iam::654654444899:policy/cms-cloud-admin/developer-boundary-policy/"<br>      }<br>    ]<br>  }<br>]</pre> | no |
+| <a name="input_policy_name_prefix"></a> [policy\_name\_prefix](#input\_policy\_name\_prefix) | IAM policy name prefix | `string` | `"AmazonEKS_"` | no |
 | <a name="input_port"></a> [port](#input\_port) | n/a | `number` | `1433` | no |
 | <a name="input_role_description"></a> [role\_description](#input\_role\_description) | IAM Role description | `string` | `null` | no |
 | <a name="input_role_name"></a> [role\_name](#input\_role\_name) | Name of IAM role | `string` | `"vpc-cni"` | no |
 | <a name="input_role_path"></a> [role\_path](#input\_role\_path) | Path of IAM role | `string` | `"/delegatedadmin/developer/"` | no |
-| <a name="input_role_permissions_boundary_arn"></a> [role\_permissions\_boundary\_arn](#input\_role\_permissions\_boundary\_arn) | Permissions boundary ARN to use for IAM role | `string` | `"arn:aws:iam::373346310182:policy/cms-cloud-admin/developer-boundary-policy"` | no |
+| <a name="input_role_permissions_boundary_arn"></a> [role\_permissions\_boundary\_arn](#input\_role\_permissions\_boundary\_arn) | Permissions boundary ARN to use for IAM role | `string` | `"arn:aws:iam::654654444899:policy/cms-cloud-admin/developer-boundary-policy/"` | no |
 | <a name="input_role_policy_arns"></a> [role\_policy\_arns](#input\_role\_policy\_arns) | ARNs of any policies to attach to the IAM role | `map(string)` | `{}` | no |
+| <a name="input_s3_bucket_arns"></a> [s3\_bucket\_arns](#input\_s3\_bucket\_arns) | List of S3 Bucket ARNs to allow access to | `list(string)` | <pre>[<br>  ""<br>]</pre> | no |
+| <a name="input_s3_integration_role_arn"></a> [s3\_integration\_role\_arn](#input\_s3\_integration\_role\_arn) | n/a | `string` | `""` | no |
 | <a name="input_skip_final_snapshot"></a> [skip\_final\_snapshot](#input\_skip\_final\_snapshot) | n/a | `bool` | `false` | no |
 | <a name="input_subnet_group_name_override"></a> [subnet\_group\_name\_override](#input\_subnet\_group\_name\_override) | Override the subnet group name. If not set, the name will be the same as the name of the RDS instance | `string` | `""` | no |
 | <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | n/a | `list(string)` | n/a | yes |
@@ -105,6 +114,7 @@ You should see output showing the tables in the mssql database.
 
 | Name | Description |
 |------|-------------|
+| <a name="output_arn"></a> [arn](#output\_arn) | n/a |
 | <a name="output_db_database_name"></a> [db\_database\_name](#output\_db\_database\_name) | Name for an automatically created database on creation |
 | <a name="output_db_endpoint"></a> [db\_endpoint](#output\_db\_endpoint) | Endpoint for the db |
 | <a name="output_db_engine_version_actual"></a> [db\_engine\_version\_actual](#output\_db\_engine\_version\_actual) | The running version of the RDS database |
@@ -115,4 +125,5 @@ You should see output showing the tables in the mssql database.
 | <a name="output_db_master_username"></a> [db\_master\_username](#output\_db\_master\_username) | The database master username |
 | <a name="output_db_port"></a> [db\_port](#output\_db\_port) | The database port |
 | <a name="output_db_resource_id"></a> [db\_resource\_id](#output\_db\_resource\_id) | The RDS Resource ID |
+| <a name="output_options-value"></a> [options-value](#output\_options-value) | n/a |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
