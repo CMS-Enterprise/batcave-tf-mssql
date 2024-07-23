@@ -37,7 +37,7 @@ module "mssql-db" {
   multi_az               = false
   db_subnet_group_name   = aws_db_subnet_group.db_subnet_group.name
   vpc_security_group_ids = concat([aws_security_group.mssql.id], var.additional_attached_security_group_ids)
-
+  snapshot_identifier             = var.snapshot_identifier
   maintenance_window              = var.maintenance_window
   backup_window                   = var.backup_window
   enabled_cloudwatch_logs_exports = var.enabled_cloudwatch_logs_exports
