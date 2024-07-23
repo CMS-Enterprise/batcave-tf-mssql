@@ -34,9 +34,9 @@ module "mssql-db" {
   create_random_password = var.create_random_password
   port                   = var.port
 
-  multi_az               = false
-  db_subnet_group_name   = aws_db_subnet_group.db_subnet_group.name
-  vpc_security_group_ids = concat([aws_security_group.mssql.id], var.additional_attached_security_group_ids)
+  multi_az                        = false
+  db_subnet_group_name            = aws_db_subnet_group.db_subnet_group.name
+  vpc_security_group_ids          = concat([aws_security_group.mssql.id], var.additional_attached_security_group_ids)
   snapshot_identifier             = var.snapshot_identifier
   maintenance_window              = var.maintenance_window
   backup_window                   = var.backup_window

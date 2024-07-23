@@ -104,6 +104,7 @@ You should see output showing the tables in the mssql database.
 | <a name="input_s3_bucket_arns"></a> [s3\_bucket\_arns](#input\_s3\_bucket\_arns) | List of S3 Bucket ARNs to allow access to | `list(string)` | <pre>[<br>  ""<br>]</pre> | no |
 | <a name="input_s3_integration_role_arn"></a> [s3\_integration\_role\_arn](#input\_s3\_integration\_role\_arn) | n/a | `string` | `""` | no |
 | <a name="input_skip_final_snapshot"></a> [skip\_final\_snapshot](#input\_skip\_final\_snapshot) | n/a | `bool` | `false` | no |
+| <a name="input_snapshot_identifier"></a> [snapshot\_identifier](#input\_snapshot\_identifier) | Specifies whether or not to create this database from a snapshot. This correlates to the snapshot ID you'd find in the RDS console, e.g: rds:production-2015-06-26-06-05 | `string` | `null` | no |
 | <a name="input_subnet_group_name_override"></a> [subnet\_group\_name\_override](#input\_subnet\_group\_name\_override) | Override the subnet group name. If not set, the name will be the same as the name of the RDS instance | `string` | `""` | no |
 | <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | n/a | `list(string)` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | n/a | `map(string)` | <pre>{<br>  "Owner": "Batcave"<br>}</pre> | no |
