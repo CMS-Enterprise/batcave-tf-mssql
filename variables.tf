@@ -47,19 +47,19 @@ variable "tags" {
   }
 }
 
-variable "route53_zone_id" {
-  default = ""
-  type    = string
-}
-variable "route53_zone_base_domain" {
-  description = "If route53_zone_id is an empty string, this variable is used to lookup the r53 zone dynamicaly"
-  default     = ""
-  type        = string
-}
+#variable "route53_zone_id" {
+#  default = ""
+#  type    = string
+#}
+#variable "route53_zone_base_domain" {
+#  description = "If route53_zone_id is an empty string, this variable is used to lookup the r53 zone dynamicaly"
+#  default     = ""
+#  type        = string
+#}
 
-variable "route53_record_name" {
-  type = string
-}
+#variable "route53_record_name" {
+#  type = string
+#}
 
 variable "allowed_security_group_ids" {
   type    = list(string)
@@ -119,10 +119,10 @@ variable "skip_final_snapshot" {
   default = false
 }
 
-variable "options" {
-  description = "A list of Options to apply"
-  type        = any
-  default     = []
+variable "snapshot_identifier" {
+  description = "Specifies whether or not to create this database from a snapshot. This correlates to the snapshot ID you'd find in the RDS console, e.g: rds:production-2015-06-26-06-05"
+  type        = string
+  default     = null
 }
 
 variable "subnet_group_name_override" {
@@ -142,4 +142,150 @@ variable "ca_cert_identifier" {
   description = "Specifies the identifier of the CA certificate for the DB instance"
   type        = string
   default     = "rds-ca-rsa2048-g1"
+}
+
+variable "engine_version_number" {
+  description = ""
+  type        = string
+  default     = "15.00"
+}
+
+variable "engine" {
+  description = ""
+  type        = string
+  default     = "sqlserver-se"
+}
+
+variable "enabled_cloudwatch_logs_exports" {
+  type    = list(any)
+  default = ["agent", "error"]
+}
+
+variable "timezone" {
+  type    = string
+  default = "GMT Standard Time"
+}
+
+variable "character_set_name" {
+  type    = string
+  default = "Latin1_General_CI_AS"
+}
+
+variable "license_model" {
+  type    = string
+  default = "license-included"
+}
+
+variable "family" {
+  type    = string
+  default = "sqlserver-se-15.0"
+}
+
+variable "create_role" {
+  description = "Whether to create a role"
+  type        = bool
+  default     = true
+}
+
+variable "role_name" {
+  description = "Name of IAM role"
+  type        = string
+  default     = "vpc-cni"
+}
+
+variable "role_path" {
+  description = "Path of IAM role"
+  type        = string
+  default     = "/delegatedadmin/developer/"
+}
+
+variable "role_description" {
+  description = "IAM Role description"
+  type        = string
+  default     = null
+}
+
+variable "policy_name_prefix" {
+  description = "IAM policy name prefix"
+  type        = string
+  default     = "AmazonEKS_"
+}
+
+variable "role_policy_arns" {
+  description = "ARNs of any policies to attach to the IAM role"
+  type        = map(string)
+  default     = {}
+}
+
+variable "oidc_providers" {
+  description = "Map of OIDC providers where each provider map should contain the `provider`, `provider_arn`, and `namespace_service_accounts`"
+  type        = any
+  default = {
+    one = {
+      provider_arn               = ""
+      namespace_service_accounts = ["default:default"]
+    }
+  }
+}
+
+variable "force_detach_policies" {
+  description = "Whether policies should be detached from this role when destroying"
+  type        = bool
+  default     = true
+}
+
+variable "max_session_duration" {
+  description = "Maximum CLI/API session duration in seconds between 3600 and 43200"
+  type        = number
+  default     = null
+}
+
+
+variable "assume_role_condition_test" {
+  description = "Name of the [IAM condition operator](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html) to evaluate when assuming the role"
+  type        = string
+  default     = "StringEquals"
+}
+
+variable "aws_id" {
+  description = "AWS Account Ids"
+  type        = string
+  default     = "111122223333"
+}
+
+variable "app_name" {
+  description = "App name (ie. Flux, Velero, etc.)"
+  type        = string
+  default     = ""
+}
+
+# S3
+variable "attach_s3_policy" {
+  description = "Determines whether to attach the S3 to the role"
+  type        = bool
+  default     = false
+}
+
+variable "s3_bucket_arns" {
+  description = "List of S3 Bucket ARNs to allow access to"
+  type        = list(string)
+  default     = [""]
+}
+
+variable "options" {
+  description = "A list of Options to apply"
+  type        = any
+  default = [{
+    option_name = "SQLSERVER_BACKUP_RESTORE"
+    option_settings = [{
+      name  = "IAM_ROLE_ARN"
+      value = "arn:aws:iam::654654444899:policy/cms-cloud-admin/developer-boundary-policy/" # db-s3-role dependency
+    }]
+  }]
+}
+
+variable "role_permissions_boundary_arn" {
+  description = "Permissions boundary ARN to use for IAM role"
+  type        = string
+  default     = "arn:aws:iam::654654444899:policy/cms-cloud-admin/developer-boundary-policy/"
 }

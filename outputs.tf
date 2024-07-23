@@ -49,3 +49,11 @@ output "db_hosted_zone_id" {
   description = "The Route53 Hosted Zone ID of the endpoint"
   value       = module.mssql-db.db_instance_hosted_zone_id
 }
+
+output "options-value" {
+  value = "arn:aws:iam::${var.aws_id}:role/delegatedadmin/developer/${var.role_name}"
+}
+
+output "arn" {
+  value = "arn:aws:iam::${var.aws_id}:policy/cms-cloud-admin/developer-boundary-policy"
+}
